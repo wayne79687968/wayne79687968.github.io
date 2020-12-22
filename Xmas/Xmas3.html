@@ -93,7 +93,9 @@
                 document.getElementById('person').innerHTML = result;
             };
             // start reading the file. When it is done, calls the onload event defined above.
-            reader.readAsBinaryString(fileInput.files[0]);
+            file = fileInput.files[0];
+            // reader.readAsBinaryString(file);
+            reader.readAsText(file, 'utf8');
         };
 
     fileInput.addEventListener('change', readFile);
