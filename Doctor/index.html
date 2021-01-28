@@ -9,9 +9,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
 </script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+<script type="module">
+    import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js'
+  </script>
 <div class='container' style="padding-bottom: 1%;">
     <div class="row">
-        <h5>1. 20 歲女性頻尿、急尿兩日。從今天早上開始尿意呈現淡粉紅色。</h5>
+        <h5>1. 20 歲女性頻尿、急尿兩日。從今天早上開始尿液呈現淡粉紅色。</h5>
     </div>
     <input id="csv" type="hidden" value="question.csv">
     <div class="row">
@@ -19,6 +24,7 @@
         <button class="btn btn-success" onclick="pgysicalExamination()">身體理學檢查</button>
         <button class="btn btn-success" onclick="cbc()">CBC</button>
         <button class="btn btn-success" onclick="urineRoutine()">尿液檢查</button>
+        <button class="btn btn-success" onclick="doShowFirst()">showFirst</button>
     </div>
 </div>
 <div class='container'>
@@ -37,14 +43,36 @@
     </div>
 </div>
 
-<script>
-    var first = {
-        "vitalSign"             : "T = 37.5°C, P = 105, R = 18, and BP= 105/70 mm Hg",
-        "pgysicalExamination"   : "恥骨聯合上有局部壓痛",
-        "cbc"                   : "Hgb 13.9 g/dL, Hct 41.7%, MCV 79 fL, WBC10,500μl",
-        "urineRoutine"          : "Bacteria 2+",
-    };
-    
+<div id="app">
+    <button v-on:click="doShowFirst">123</button>
+</div>
+
+<script type="module">
+import first from './question/01.js';
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            doShowFirst() {
+                alert(1);
+                console.log(first,this.first);
+            }
+        },
+    });
+</script>
+
+<!-- <script>
+    import first from './question/01.js';
+
+    // var first = {
+    //     "vitalSign"             : "T = 37.5°C, P = 105, R = 18, and BP= 105/70 mm Hg",
+    //     "pgysicalExamination"   : "恥骨聯合上有局部壓痛",
+    //     "cbc"                   : "Hgb 13.9 g/dL, Hct 41.7%, MCV 79 fL, WBC10,500μl",
+    //     "urineRoutine"          : "Bacteria 2+",
+    // };
+    function doShowFirst() {
+        console.log(first,this.first);
+    }
     function vitalSign() {
         document.getElementById("result").innerHTML = first.vitalSign;
     }
@@ -57,4 +85,4 @@
     function urineRoutine() {
         document.getElementById("result").innerHTML = first.urineRoutine;
     }
-</script>
+</script> -->
