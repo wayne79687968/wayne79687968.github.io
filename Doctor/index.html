@@ -10,12 +10,16 @@
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
 </script>
 <div class='container' style="padding-bottom: 1%;">
-    <h1>1.</h1>
-    20 歲女性頻尿、急尿兩日。從今天早上開始尿意呈現淡粉紅色。
-    <button class="btn btn-success" onclick="vitalSign()">量測生命徵象</button>
-    <button class="btn btn-success" onclick="pgysicalExamination()">身體理學檢查</button>
-    <button class="btn btn-success" onclick="cbc()">CBC</button>
-    <button class="btn btn-success" onclick="urineRoutine()">尿液檢查</button>
+    <div class="row">
+        <h5>1. 20 歲女性頻尿、急尿兩日。從今天早上開始尿意呈現淡粉紅色。</h5>
+    </div>
+    <input id="csv" type="hidden" value="question.csv">
+    <div class="row">
+        <button class="btn btn-success" onclick="vitalSign()">量測生命徵象</button>
+        <button class="btn btn-success" onclick="pgysicalExamination()">身體理學檢查</button>
+        <button class="btn btn-success" onclick="cbc()">CBC</button>
+        <button class="btn btn-success" onclick="urineRoutine()">尿液檢查</button>
+    </div>
 </div>
 <div class='container'>
     <div class="row">
@@ -26,7 +30,7 @@
                         <th scope="col">Result</th>
                     </tr>
                 </thead>
-                <tbody id="person">
+                <tbody id="result">
                 </tbody>
             </table>
         </div>
@@ -34,39 +38,23 @@
 </div>
 
 <script>
-    var tr = [];
-    var row = 0;
-
-    function vitalSign() {
-        document.getElementById("result").innerHTML = result;
-    }
-
-    var fileInput = document.getElementById("csv"),
-    readFile = function () {
-        var reader = new FileReader();
-        reader.onload = function () {
-            input = reader.result;
-            datas = input.split("\n");
-            result = '';
-            datas.forEach(function(value, index){
-                if (row < 9) {
-                    tr[row] = (row + 1) + ".&nbsp&nbsp&nbsp&nbsp" + value;
-                } else {
-                    tr[row] = (row + 1) + ".&nbsp&nbsp" + value;
-                }
-                row++;
-            });
-            
-            tr.forEach(function(value){
-                result += "<tr><td>" + value + "</td></tr>";
-            });
-            document.getElementById('person').innerHTML = result;
-        };
-        // start reading the file. When it is done, calls the onload event defined above.
-        file = fileInput.files[0];
-        // reader.readAsBinaryString(file);
-        reader.readAsText(file, 'utf8');
+    var first = {
+        "vitalSign"             : "T = 37.5°C, P = 105, R = 18, and BP= 105/70 mm Hg",
+        "pgysicalExamination"   : "恥骨聯合上有局部壓痛",
+        "cbc"                   : "Hgb 13.9 g/dL, Hct 41.7%, MCV 79 fL, WBC10,500μl",
+        "urineRoutine"          : "Bacteria 2+",
     };
-
-    fileInput.addEventListener('change', readFile);
+    
+    function vitalSign() {
+        document.getElementById("result").innerHTML = first.vitalSign;
+    }
+    function pgysicalExamination() {
+        document.getElementById("result").innerHTML = first.pgysicalExamination;
+    }
+    function cbc() {
+        document.getElementById("result").innerHTML = first.cbc;
+    }
+    function urineRoutine() {
+        document.getElementById("result").innerHTML = first.urineRoutine;
+    }
 </script>
