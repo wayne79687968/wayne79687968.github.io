@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
+</script>
+<div class='container' style="padding-bottom: 1%;">
+    <h1>1.</h1>
+    20 歲女性頻尿、急尿兩日。從今天早上開始尿意呈現淡粉紅色。
+    <button class="btn btn-success" onclick="vitalSign()">量測生命徵象</button>
+    <button class="btn btn-success" onclick="pgysicalExamination()">身體理學檢查</button>
+    <button class="btn btn-success" onclick="cbc()">CBC</button>
+    <button class="btn btn-success" onclick="urineRoutine()">尿液檢查</button>
+</div>
+<div class='container'>
+    <div class="row">
+        <div class="col-sm-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Result</th>
+                    </tr>
+                </thead>
+                <tbody id="person">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    var tr = [];
+    var row = 0;
+
+    function vitalSign() {
+        document.getElementById("result").innerHTML = result;
+    }
+
+    var fileInput = document.getElementById("csv"),
+    readFile = function () {
+        var reader = new FileReader();
+        reader.onload = function () {
+            input = reader.result;
+            datas = input.split("\n");
+            result = '';
+            datas.forEach(function(value, index){
+                if (row < 9) {
+                    tr[row] = (row + 1) + ".&nbsp&nbsp&nbsp&nbsp" + value;
+                } else {
+                    tr[row] = (row + 1) + ".&nbsp&nbsp" + value;
+                }
+                row++;
+            });
+            
+            tr.forEach(function(value){
+                result += "<tr><td>" + value + "</td></tr>";
+            });
+            document.getElementById('person').innerHTML = result;
+        };
+        // start reading the file. When it is done, calls the onload event defined above.
+        file = fileInput.files[0];
+        // reader.readAsBinaryString(file);
+        reader.readAsText(file, 'utf8');
+    };
+
+    fileInput.addEventListener('change', readFile);
+</script>
