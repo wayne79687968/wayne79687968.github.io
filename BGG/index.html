@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BGG</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script type='text/javascript' src="./node_modules/x2js/x2js.js"></script>
+</head>
+<body>
+    <xmp id="result"></xmp>
+</body>
+<script>
+    import x2js from 'x2js' //xml数据处理插件
+    Vue.prototype.$x2js = new x2js() //全局方法挂载
+    
+    axios.get('https://boardgamegeek.com/xmlapi2/collection?username=wayne79687968')
+        .then(function (response) {
+            /* 成功拿到資料，然後... */
+            document.getElementById("result").innerHTML = response.data;
+            console.log(typeof(response.data));
+            console.log(response.item);
+            response.forEach(element => {
+                console.log(element);
+            });
+            const x2js = require('x2js');
+            const x2jsone = new x2js(); //实例
+            //str是接口返回的数据
+            const xml = x2jsone.xml2js(response)  //解析
+            console.log(xml) //打印
+        })
+        .catch(function (error) {
+            /* 失敗，發生錯誤，然後...*/
+        });
+</script>
+</html>
