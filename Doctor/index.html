@@ -1,5 +1,12 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
 </script>
@@ -10,6 +17,7 @@
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script type="module">
     import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.esm.browser.js'
@@ -24,7 +32,6 @@
         <button class="btn btn-success" onclick="pgysicalExamination()">身體理學檢查</button>
         <button class="btn btn-success" onclick="cbc()">CBC</button>
         <button class="btn btn-success" onclick="urineRoutine()">尿液檢查</button>
-        <button class="btn btn-success" onclick="doShowFirst()">showFirst</button>
     </div>
 </div>
 <div class='container'>
@@ -43,46 +50,26 @@
     </div>
 </div>
 
-<div id="app">
-    <button v-on:click="doShowFirst">123</button>
-</div>
-
 <script type="module">
-import first from './question/01.js';
+    import question from './question/index.js';
     var app = new Vue({
         el: '#app',
+        vuetify: new Vuetify(),
         data: {},
         methods: {
-            doShowFirst() {
-                alert(1);
-                console.log(first,this.first);
+            vitalSign() {
+                document.getElementById("result").innerHTML = question[0].vitalSign;
+            }
+            pgysicalExamination() {
+                document.getElementById("result").innerHTML = question[0].pgysicalExamination;
+            }
+            cbc() {
+                document.getElementById("result").innerHTML = question[0].cbc;
+            }
+            urineRoutine() {
+                document.getElementById("result").innerHTML = question[0].urineRoutine;
             }
         },
     });
 </script>
-
-<!-- <script>
-    import first from './question/01.js';
-
-    // var first = {
-    //     "vitalSign"             : "T = 37.5°C, P = 105, R = 18, and BP= 105/70 mm Hg",
-    //     "pgysicalExamination"   : "恥骨聯合上有局部壓痛",
-    //     "cbc"                   : "Hgb 13.9 g/dL, Hct 41.7%, MCV 79 fL, WBC10,500μl",
-    //     "urineRoutine"          : "Bacteria 2+",
-    // };
-    function doShowFirst() {
-        console.log(first,this.first);
-    }
-    function vitalSign() {
-        document.getElementById("result").innerHTML = first.vitalSign;
-    }
-    function pgysicalExamination() {
-        document.getElementById("result").innerHTML = first.pgysicalExamination;
-    }
-    function cbc() {
-        document.getElementById("result").innerHTML = first.cbc;
-    }
-    function urineRoutine() {
-        document.getElementById("result").innerHTML = first.urineRoutine;
-    }
-</script> -->
+</html>
